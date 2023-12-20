@@ -1,14 +1,19 @@
 package main
 
 import (
+	//"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
-	"errors"
 )
 
 func main() {
 	fmt.Println("Hello, World!")
-}	
+	router:= gin.Default()
+	router.GET("/books", getBooks)
+	router.Run("localhost:8080")
+}
 
 type book struct {
 	ID string `json:"id"`
@@ -27,6 +32,8 @@ var books = []book{
 }
 
 
-
+func getBooks(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, books)
+}
 
 
